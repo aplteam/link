@@ -1,6 +1,8 @@
 ### Setting up your Environment
 
-With a small project, you can get by using `]Link.Create` and/or `Link.Import` to bring your source into the workspace in order to work with it. However, even in a small project, this quickly gets tedious, and as the project grows, you may want to load code from more that one directory, and perhaps run some code in order to set things up or even start the application. Fortunately, the [Link API](API.md) provides all the functions that you need to automate the setup.
+With a small project, you can get by using `]Link.Create` and/or `Link.Import` to bring your source into the workspace in order to work with it. However, even in a small project, this quickly gets tedious, and as the project grows, you may want to load code from more than one directory, and perhaps run some code in order to set things up or even start the application. 
+
+Fortunately, the [Link API](API.md) provides all the functions that you need to automate the setup.
 
 To illustrate, we will create a small application that uses the stats library that we created in the [introduction](GettingStarted.md). We'll put the application into a namespace called `linkdemo`:
 
@@ -14,7 +16,7 @@ Linked: #.linkdemo ←→ /users/sally/linkdemo
       )ed linkdemo.Run
 ```
 
-Our application is going to prompt the user for an input array and output the mean and standard deviation of the data, until the user inputs an empty array. Obviously, the code should be enhanced to validate the input and perhaps trap errors, but that is left as an exercise for the reader.
+Our application is going to prompt the user for an input array and output the mean and standard deviation of the data, until the user inputs an empty array. Obviously, the code should be enhanced to validate the input and perhaps trap errors, but here we keep things simple.
 
 ```apl
      ∇ Run;data                                           
@@ -30,7 +32,7 @@ Our application is going to prompt the user for an input array and output the me
      ∇                                                                                   
 ```
 
-We will need the `stats` code in the workspace as well, of course. Since we only intend to use it and don't want to risk making changes to its source code while testing our own application, we will use `]link.import` rather than `]link.create` to bring that code into the workspace:
+We will need the `stats` code in the workspace as well, of course. Since we only intend to use it, and don't want to risk making changes to its source code while testing our own application, we will use `]link.import` rather than `]link.create` to bring that code into the workspace:
 
 ```      apl
       ]link.import stats /users/sally/stats
@@ -49,7 +51,9 @@ Enter some numbers:
 
 ### Automating Startup
 
-Starting with version 18.0, it is simple to launch the interpreter from a text file: either a source file defining a function, namespace or class using the [LOAD parameter](https://help.dyalog.com/18.0/#UserGuide/Installation%20and%20Configuration/Configuration%20Parameters/Load.htm) or from a configuration file using the  [CONFIGFILE parameter](https://help.dyalog.com/18.0/#UserGuide/Installation%20and%20Configuration/Configuration%20Files.htm). Configuration files allow you to both set a startup expression and include other configuration options for the interpreter. For example, if we were to define a file `dev.dcfg` in the `linkdemo` folder with the following contents:
+Starting with version 18.0, it is simple _to launch the interpreter_ from a text file: either a source file defining a function, namespace or class using the [LOAD parameter](https://help.dyalog.com/18.0/#UserGuide/Installation%20and%20Configuration/Configuration%20Parameters/Load.htm) or from a configuration file using the  [CONFIGFILE parameter](https://help.dyalog.com/18.0/#UserGuide/Installation%20and%20Configuration/Configuration%20Files.htm). Configuration files allow you to both set a startup expression and include other configuration options for the interpreter. For example, if we were to define a file `dev.dcfg` in the `linkdemo` folder with the following contents:
+
+> Kai: the interpreter is not really launched from the text file I guess?!
 
 ```json
 {
@@ -78,7 +82,7 @@ The function `linkdemo.Start` will bring in the `stats` library using `Link.Impo
      ∇                                                                                 
 ```
 
-We can now launch out development environment using `dyalog CONFIGFILE=linkdemo/devt.cfg`, or on some platforms right-clicking on this file and selecting Run.
+We can now launch out development environment using `dyalog CONFIGFILE=linkdemo/devt.cfg`, or on some platforms right-clicking on this file and selecting "Run".
 
 ### Development vs Runtime
 
